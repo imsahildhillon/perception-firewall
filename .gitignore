@@ -47,6 +47,12 @@ conda-meta/
 *.key
 *credentials*
 *token*
+# Narrow exception: "tokenizer" is a normal, non-secret component/file
+# name used throughout this project (e.g. Whisper's tokenizer boundary
+# and its tests) — it happens to contain the substring "token" but is
+# not a credential. Genuine token/credential filenames (matching *token*
+# without "tokenizer" in them) remain ignored above.
+!*tokenizer*
 client.ini
 
 # --- Large / compiled model artifacts (anywhere in the repo) ---
