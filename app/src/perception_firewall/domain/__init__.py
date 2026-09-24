@@ -10,7 +10,7 @@ from perception_firewall.domain.evidence import (
     EvidenceCategory,
     EvidenceSource,
 )
-from perception_firewall.domain.risk import RiskAssessment, RiskLevel
+from perception_firewall.domain.risk import RiskAssessment, RiskContribution, RiskLevel
 from perception_firewall.domain.session import SessionState
 from perception_firewall.domain.transcript import TranscriptSegment, TranscriptSource
 
@@ -20,6 +20,7 @@ __all__ = [
     "EvidenceCategory",
     "EvidenceSource",
     "RiskAssessment",
+    "RiskContribution",
     "RiskLevel",
     "SessionState",
     "TranscriptSegment",
