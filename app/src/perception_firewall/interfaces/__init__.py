@@ -14,7 +14,9 @@ from perception_firewall.interfaces.errors import (
     EvidenceFusionError,
     PerceptionFirewallError,
     RiskEngineError,
+    SessionError,
     SpeechRecognitionError,
+    TranscriptBufferError,
 )
 from perception_firewall.interfaces.evidence_provider import EvidenceProvider
 from perception_firewall.interfaces.risk_engine import RiskEngine
@@ -31,7 +33,9 @@ __all__ = [
     "PerceptionFirewallError",
     "RiskEngine",
     "RiskEngineError",
+    "SessionError",
     "SpeechRecognitionError",
     "SpeechToTextEngine",
     "TextClassifier",
+    "TranscriptBufferError",
 ]

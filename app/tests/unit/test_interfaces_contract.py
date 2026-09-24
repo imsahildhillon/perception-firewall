@@ -13,7 +13,9 @@ from perception_firewall.interfaces.errors import (
     EvidenceFusionError,
     PerceptionFirewallError,
     RiskEngineError,
+    SessionError,
     SpeechRecognitionError,
+    TranscriptBufferError,
 )
 from perception_firewall.interfaces.evidence_provider import EvidenceProvider
 from perception_firewall.interfaces.risk_engine import RiskEngine
@@ -38,6 +40,8 @@ def test_interfaces_cannot_be_instantiated_directly(interface):
         EvidenceExtractionError,
         EvidenceFusionError,
         RiskEngineError,
+        TranscriptBufferError,
+        SessionError,
     ],
 )
 def test_application_errors_are_perception_firewall_errors(error_cls):

@@ -44,3 +44,13 @@ class EvidenceFusionError(PerceptionFirewallError):
 class RiskEngineError(PerceptionFirewallError):
     """Raised when a risk engine cannot produce an assessment for the
     given evidence."""
+
+
+class TranscriptBufferError(PerceptionFirewallError):
+    """Raised when a transcript buffer receives malformed input (not a
+    TranscriptSegment) or an out-of-order segment."""
+
+
+class SessionError(PerceptionFirewallError):
+    """Raised when an invalid session lifecycle operation is attempted
+    (e.g. an invalid state transition, or an empty/missing session_id)."""
