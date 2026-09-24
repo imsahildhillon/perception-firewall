@@ -12,12 +12,12 @@ architecture).
 - These two versions pin mutually exclusive `huggingface-hub` ranges
   (`<1.0,>=0.34.0` vs. `<2.0,>=1.5.0`), confirmed via PyPI metadata — they
   cannot be installed in the same Python environment.
-- The development machine is an Apple Silicon Mac, which cannot execute
-  Qualcomm Hexagon NPU inference. All NPU validation to date has happened
-  remotely via Qualcomm AI Hub Workbench against real Snapdragon X Elite
-  hardware, not locally on the Mac.
+- The local development environment cannot execute Qualcomm Hexagon NPU
+  inference. All NPU validation to date has happened remotely via Qualcomm
+  AI Hub Workbench against real Snapdragon X Elite hardware, not locally.
 - The application's actual deployment target is Windows on Snapdragon
-  (ARM64), a different OS and architecture from the development machine.
+  (ARM64), a different OS and architecture from the local development
+  environment used to build and test it.
 
 ## Decision
 
@@ -34,10 +34,11 @@ Python packages directly.
 1. Whisper and Qwen3 require incompatible Python dependency stacks
    (`transformers` 4.x vs. 5.x), so a single shared environment cannot
    export/run both models.
-2. Qualcomm NPU execution is not available on the Mac, so application logic
-   must be structured to be developed and tested independently of any
-   specific inference runtime, then integrated with real on-device runtimes
-   only on actual Snapdragon hardware.
+2. Qualcomm NPU execution is not available in the local development
+   environment, so application logic must be structured to be developed
+   and tested independently of any specific inference runtime, then
+   integrated with real on-device runtimes only on actual Snapdragon
+   hardware.
 3. Separating the two layers means a dependency change needed for one
    model's export tooling can never break the other model's export tooling,
    and neither can break the application runtime, which doesn't depend on
@@ -52,8 +53,8 @@ Python packages directly.
   (`docs/ARCHITECTURE.md`) and does not require changes to application code,
   provided the interface contract is preserved.
 - End-to-end validation of the full application can only happen on real
-  Windows-on-Snapdragon hardware; Mac-based development necessarily relies
-  on mocked/stubbed inference until that point.
+  Windows-on-Snapdragon hardware; local development necessarily relies on
+  mocked/stubbed inference until that point.
 
 ## Alternatives considered (not chosen)
 

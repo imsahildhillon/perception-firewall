@@ -26,10 +26,9 @@ strongly-typed Python — `TranscriptSegment`, `Evidence`, `ClassificationResult
    `Evidence.explanation`, `ClassificationResult.overall_assessment`).
    Consumers of these models can always tell which is which.
 
-5. **The domain layer must be usable on the Mac without Qualcomm
-   dependencies.** It depends only on the Python standard library, so it
-   can be developed, imported, and unit-tested in any environment,
-   including the developer's Apple Silicon Mac, with no `qai_hub`,
+5. **The domain layer must be usable without Qualcomm dependencies.** It
+   depends only on the Python standard library, so it can be developed,
+   imported, and unit-tested in any environment, with no `qai_hub`,
    `transformers`, `torch`, or `onnxruntime` installed.
 
 6. **The same domain layer will be reused on Windows/Snapdragon.** These

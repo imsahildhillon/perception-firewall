@@ -8,14 +8,14 @@ transcribes it locally, and classifies the ongoing conversation for
 social-engineering/scam risk — surfacing warnings with evidence quotes,
 entirely on-device.
 
-## Current development hardware
+## Development approach
 
-Apple Silicon Mac M2.
-
-**Important limitation:** the Mac does not provide Qualcomm Hexagon NPU
-execution. Application logic in this repository is being developed and
-unit-tested on the Mac against mockable inference interfaces; real on-device
-NPU inference can only be exercised on actual Snapdragon hardware.
+Application logic is developed and unit-tested against mockable inference
+interfaces, independent of any specific inference runtime. Qualcomm Hexagon
+NPU execution is only available on real Snapdragon hardware, so on-device
+NPU inference is validated separately, via Qualcomm AI Hub Workbench against
+real Snapdragon devices (see "Validated Qualcomm evidence" below) — not as
+part of local application unit testing.
 
 ## Validated Qualcomm evidence
 
@@ -37,8 +37,8 @@ made until such a test has actually been performed.
 Application logic must remain independent of Qualcomm-specific inference
 runtimes. The pipeline stages (audio capture, transcript buffering,
 deterministic prefilter, classifier, risk fusion, UI) are designed against
-interfaces, not concrete model runtimes, so they can be built and tested on
-the Mac and later wired to real on-device inference on Windows/Snapdragon
+interfaces, not concrete model runtimes, so they can be built and tested
+locally and later wired to real on-device inference on Windows/Snapdragon
 without rewriting application logic.
 
 See [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md) and
@@ -47,5 +47,28 @@ for details.
 
 ## Status
 
-Scaffolding only. No application logic, dependencies, or UI have been
-implemented yet.
+Implemented so far:
+
+- **Domain model** — model-independent core types (transcript segments,
+  evidence, classification results, risk assessments).
+- **Interfaces and deterministic mocks** — abstract contracts for audio,
+  speech-to-text, classification, evidence, and risk, plus dependency-free
+  mock implementations for local development and testing.
+- **Deterministic transcript evidence prefilter** — rule-based extraction
+  of behavioral indicators from transcript text.
+- **Deterministic risk engine** — configurable, explainable aggregation of
+  evidence into a risk assessment, with hysteresis to avoid risk-level
+  flicker.
+- **Provenance-preserving evidence fusion** — combines rule-based and
+  AI-classifier evidence into one collection without letting AI
+  interpretation be mistaken for observed fact.
+- **Comprehensive automated tests** — 231 tests passing.
+- **Snapdragon model compilation/profile validation** — Whisper-Base and
+  Qwen3-1.7B (W4A16) compiled and profiled via Qualcomm AI Hub Workbench on
+  Snapdragon X Elite CRD hardware (see "Validated Qualcomm evidence" above).
+
+Not yet implemented: live microphone capture, on-device Qualcomm runtime
+integration (Whisper/Qwen3 inference wired into the application), the UI,
+and end-to-end application deployment on Snapdragon hardware. Full
+application latency and product readiness have not been measured or
+claimed — those are future stages.

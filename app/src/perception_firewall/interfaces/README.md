@@ -14,10 +14,11 @@ explain what a future concrete implementation will be.
 
 ## Development vs. target implementations
 
-**Development** (this repository, today, on the Mac):
+**Development** (this repository, today, in a local development
+environment):
 
 ```
-Mac
+Local development environment
  -> MockSpeechToTextEngine / MockTextClassifier   (interfaces/mocks/)
  -> application pipeline
 ```
@@ -51,16 +52,16 @@ parts, 100% NPU) on a Snapdragon X Elite CRD — establish **model-level
 feasibility on real Snapdragon hardware**. They do not establish that this
 application has been integrated with those runtimes and run end-to-end.
 That is a separate, later hardware-integration step, and requires actual
-Windows-on-Snapdragon hardware to attempt at all: **the development
-Mac (Apple Silicon M2) cannot execute Qualcomm Hexagon NPU inference**, so
-no adapter targeting the NPU can be built or tested on this machine.
+Windows-on-Snapdragon hardware to attempt at all: **the local development
+environment cannot execute Qualcomm Hexagon NPU inference**, so no adapter
+targeting the NPU can be built or tested there.
 
 ## Why this boundary exists
 
 Keeping the pipeline's dependency on models behind these interfaces means:
 
 - Pipeline code (prefilter, risk fusion, UI) can be written and tested
-  fully on the Mac, today, using the mocks.
+  fully in the local development environment, today, using the mocks.
 - Swapping a mock for a real Qualcomm adapter later requires no change to
   any code that depends only on the interfaces.
 - The two model-export environments (`snapdragon-ai`, `qwen3-npu`) and

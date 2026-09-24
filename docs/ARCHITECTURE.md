@@ -3,7 +3,7 @@
 Perception Firewall is developed and shipped as two distinct layers that do
 not share a Python dependency stack or an execution environment.
 
-## Layer 1 — Model export/build tooling (Mac-side, development only)
+## Layer 1 — Model export/build tooling (local development only)
 
 - `snapdragon-ai` conda environment (Whisper-Base export/profiling)
 - `qwen3-npu` conda environment (Qwen3-1.7B export/profiling)
@@ -15,7 +15,7 @@ not share a Python dependency stack or an execution environment.
 This layer exists solely to produce compiled model artifacts (ONNX + QNN
 context binaries for Whisper, Genie/QAIRT context binaries for Qwen3) and to
 validate them against real Snapdragon hardware via AI Hub Workbench. It runs
-only on the developer's Mac and is never packaged or shipped.
+only in the local development environment and is never packaged or shipped.
 
 ## Layer 2 — Application runtime (Windows ARM64 / Snapdragon target)
 
@@ -29,7 +29,7 @@ This is the layer that actually ships. It consumes the *compiled artifacts*
 produced by Layer 1 — it does not depend on `transformers`, `torch`, or
 either conda environment. Application pipeline code is written against
 interfaces (see `app/src/perception_firewall/interfaces/`) so it can be
-developed and unit-tested on the Mac with mocked/stub inference, then wired
+developed and unit-tested locally with mocked/stub inference, then wired
 to the real compiled runtimes only when running on Snapdragon hardware.
 
 ## Explicit statement
