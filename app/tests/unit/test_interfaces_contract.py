@@ -10,6 +10,7 @@ from perception_firewall.interfaces.errors import (
     AudioSourceError,
     ClassificationError,
     EvidenceExtractionError,
+    EvidenceFusionError,
     PerceptionFirewallError,
     RiskEngineError,
     SpeechRecognitionError,
@@ -35,6 +36,7 @@ def test_interfaces_cannot_be_instantiated_directly(interface):
         SpeechRecognitionError,
         ClassificationError,
         EvidenceExtractionError,
+        EvidenceFusionError,
         RiskEngineError,
     ],
 )

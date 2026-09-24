@@ -35,6 +35,12 @@ class EvidenceExtractionError(PerceptionFirewallError):
     content."""
 
 
+class EvidenceFusionError(PerceptionFirewallError):
+    """Raised when the evidence fusion layer cannot combine rule evidence
+    and/or a classification result into a clean evidence collection
+    (e.g. malformed input), never for a normal "nothing to fuse" case."""
+
+
 class RiskEngineError(PerceptionFirewallError):
     """Raised when a risk engine cannot produce an assessment for the
     given evidence."""
