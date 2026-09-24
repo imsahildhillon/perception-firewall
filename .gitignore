@@ -1,0 +1,105 @@
+# ============================================================
+# Perception Firewall — .gitignore
+# Granular by design: experiments/ documentation stays trackable,
+# only large/binary/generated artifacts and secrets are excluded.
+# ============================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Virtual environments / conda ---
+.venv/
+venv/
+env/
+ENV/
+# conda environments accidentally created inside the repo
+envs/
+conda-meta/
+
+# --- Local tool/session bookkeeping (not project source) ---
+.claude/
+
+# --- OS / editor metadata ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- Secrets / credentials / tokens ---
+.env
+.env.*
+*.pem
+*.key
+*credentials*
+*token*
+client.ini
+
+# --- Large / compiled model artifacts (anywhere in the repo) ---
+*.bin
+*.onnx
+*.pte
+*.safetensors
+*.pt
+*.pth
+*.aimet
+*.aimet.zip
+*.qairt_context.bin
+*.tflite
+*.gguf
+*.zip
+
+# --- Model / framework caches ---
+.qaihm/
+.qai_hub/
+*.qaihm_cache/
+huggingface/
+.cache/
+
+# --- Large audio recordings ---
+*.wav
+*.flac
+*.mp3
+*.m4a
+
+# --- Generated logs ---
+*.log
+
+# ============================================================
+# experiments/ — GRANULAR rules only.
+# Do NOT blanket-ignore this directory: lightweight docs,
+# metadata.json, and README/notes must remain trackable.
+# ============================================================
+
+# Keep experiment directories and their documentation trackable
+!experiments/
+!experiments/**/
+!experiments/**/*.md
+!experiments/**/metadata.json
+!experiments/**/*.json
+
+# But large generated binary/model artifacts inside experiments/
+# are still excluded by the global *.onnx / *.bin / *.zip rules above.
+# Explicit reinforcement for known experiment artifact paths:
+experiments/whisper_base_x_elite_npu/**/*.onnx
+experiments/whisper_base_x_elite_npu/**/*.bin
+experiments/**/*qairt_context*.bin
+experiments/**/*.aimet.zip
+
+# Generated CLI logs from export runs (large, regenerable)
+experiments/*.log
+experiments/**/*_output.log

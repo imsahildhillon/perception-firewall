@@ -1,0 +1,13 @@
+[project]
+name = "perception-firewall"
+version = "0.0.1"
+description = "Privacy-first local social-engineering/scam detection assistant for Windows on Snapdragon PCs."
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
